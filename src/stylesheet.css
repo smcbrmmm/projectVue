@@ -1,0 +1,89 @@
+.home {
+    font-family: Mitr;
+}
+
+.head {
+    background-color: #2D4057;
+    color:white;
+}
+
+.body {
+    background-color: #F3DECA;
+}
+
+.header {
+    text-decoration: none;
+    color: white;
+
+}
+
+
+.text-header {
+    color: #2D4057;
+    font-size: 30px;
+}
+
+.text-require {
+    color: #2D4057
+}
+
+.card {
+    background-color: #2D4057 ;
+    color: white;
+}
+
+.buttonChoose {
+    background-color: #FA9483;
+    color: white;
+}
+
+.buttonChoose:hover {
+    background-color: #F3DECA;
+    color:white;
+}
+
+.donate-button {
+    background-color: #4097AA;
+}
+
+.block-input {
+    background-color: #4097AA;
+    color:white
+}
+
+.block {
+    background-color: #2D4057;
+    color: white;
+}
+
+.snow-bg {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-image: url('https://www.img.in.th/images/486864a4906678dbd6f1e3e4e1229a36.png'), url('https://www.img.in.th/images/be221e1fa07ab612acb982316d22ca38.png');
+     animation: snow 20s linear infinite;
+ }
+ 
+ @keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+ }
+ 
+ @media (max-width: 768px) {
+     .woocommerce ul.products li.product, 
+     .woocommerce-page ul.products li.product, 
+     .woocommerce-page[class*=columns-] ul.products li.product,
+     .woocommerce[class*=columns-] ul.products li.product {
+         width: 100%;
+         float: left;
+         clear: both;
+         margin: 0 7em;
+     }
+ }
