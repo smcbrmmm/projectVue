@@ -1,8 +1,6 @@
 <template>
   <div class="home">
 
-
-
     <div class="jumbotron text-center head" style="font-family:Mitr">
       <router-link to="/"><h1 class="display-4 header" style="text-decoration: none">ศูนย์รับบริจาคเพื่อผู้ประสบภัย</h1></router-link>
       <p
@@ -10,7 +8,13 @@
       >จัดทำขึ้นเพื่อเป็นหน่วยงานประสานงานและช่วยเหลือผู้ประสบภัยต่าง ๆ เช่น อุทกภัย และอัคคีภัย</p>
     </div>
 
-    {{ todos}}
+    <div>
+      <label> New Todo</label>
+      <input type="text" v-model="new_todo.name">
+      <label > Priority </label>
+      <input type="number" min="0" max="3" v-model="new_todo.priority">
+      <button class="btn btn-primary" @click="addTodo()">Add</button>
+    </div>
 
     <table class="table">
       <thead>
@@ -22,7 +26,11 @@
         <tbody>
           <tr v-for="todo in todos" :key="todo.id">
             <td> {{ todo.name }}</td>
-            <td> {{ todo.completed }}</td>
+            <td> {{ todo.completed }}
+              <button v-if="!todo.completed" @click="finishTodo(todo)"> Finish </button>
+
+            </td>
+
             <td> {{ todo.priority }}</td>
             <td v-if="!todo.completed"> Created At: {{ new Date(todo.createdAt.seconds * 1000) }}
             </td>
@@ -110,6 +118,10 @@ export default {
       value: 45,
       max: 100,
       todos : [],
+      new_todo : {
+        name: '',
+        priority: 0
+      },
     };
   }
   ,firestore () {
@@ -118,9 +130,25 @@ export default {
       }
   },
   methods: {
-    randomValue() {
-      this.value = Math.random() * this.max;
-    },
+      addTodo() {
+        if(this.new_todo.name != '') {
+          todosCollection.add({
+            name : this.new_todo.name,
+            priority : this.new_todo.priority,
+            completed : false ,
+            createdAt : new Date()
+          })
+        }
+        this.new_todo = {
+          name : '',
+          priority : 0
+        }
+      },finishTodo(todo) {
+        todo.completed = true
+        todo.completedAt = new Date()
+        todosCollection.doc(todo.id).update( { ...todo })
+      }
+
   },
 };
 </script>
