@@ -1,11 +1,37 @@
 <template>
   <div class="home">
+
+
+
     <div class="jumbotron text-center head" style="font-family:Mitr">
       <router-link to="/"><h1 class="display-4 header" style="text-decoration: none">ศูนย์รับบริจาคเพื่อผู้ประสบภัย</h1></router-link>
       <p
         class="lead"
       >จัดทำขึ้นเพื่อเป็นหน่วยงานประสานงานและช่วยเหลือผู้ประสบภัยต่าง ๆ เช่น อุทกภัย และอัคคีภัย</p>
     </div>
+
+    {{ todos}}
+
+    <table class="table">
+      <thead>
+        <th>Todo name</th>
+        <th>Completed ?</th>
+        <th>Priority</th>
+        <th>Timestamp</th>
+      </thead>
+        <tbody>
+          <tr v-for="todo in todos" :key="todo.id">
+            <td> {{ todo.name }}</td>
+            <td> {{ todo.completed }}</td>
+            <td> {{ todo.priority }}</td>
+            <td v-if="!todo.completed"> Created At: {{ new Date(todo.createdAt.seconds * 1000) }}
+            </td>
+            <td v-else>Completed At: {{ new Date(todo.createdAt.seconds * 1000) }}</td>
+          </tr>
+        </tbody>
+    </table>
+
+
 
     <div class="container text-center mb-3">
       <h1 class="text-header">ลงทะเบียน</h1>
@@ -76,13 +102,20 @@
 </template>
 
 <script>
+import { todosCollection } from './firebase'
 
 export default {
   data() {
     return {
       value: 45,
       max: 100,
+      todos : [],
     };
+  }
+  ,firestore () {
+      return {
+        todos: todosCollection
+      }
   },
   methods: {
     randomValue() {
